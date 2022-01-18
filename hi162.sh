@@ -43,12 +43,12 @@ echo -e "${BLUE}1.1 Initial Setup - Filesystem Configuration${NC}"
 
 #Ensure mounting of cramfs filesystems is disabled
 echo
-echo -e "${RED}1.1.1.1${NC} Mounting of cramfs filesystems is disabled"
+echo -e "${RED}1.1.1.1${NC} Ensure Mounting of cramfs filesystems is disabled"
 modprobe -n -v cramfs | grep "^install /bin/true$" || echo "install cramfs /bin/true" >> /etc/modprobe.d/CIS.conf
 rhel_1_1_1_1=$?
 lsmod | egrep "^cramfs\s" && rmmod cramfs
 if [[ "$rhel_1_1_1_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of cramfs filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of cramfs filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of cramfs filesystems is disabled"
@@ -62,7 +62,7 @@ modprobe -n -v freevxfs | grep "^install /bin/true$" || echo "install freevxfs /
 rhel_1_1_1_2=$?
 lsmod | egrep "^freevxfs\s" && rmmod freevxfs
 if [[ "$rhel_1_1_1_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of freevxfs filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of freevxfs filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of freevxfs filesystems is disabled"
@@ -76,7 +76,7 @@ rhel_1_1_1_3="$(modprobe -n -v jffs2 | grep "^install /bin/true$" || echo "insta
 rhel_1_1_1_3=$?
 lsmod | egrep "^jffs2\s" && rmmod jffs2
 if [[ "$rhel_1_1_1_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of jffs2 filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of jffs2 filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of jffs2 filesystems is disabled"
@@ -90,7 +90,7 @@ rhel_1_1_1_4="$(modprobe -n -v hfs | grep "^install /bin/true$" || echo "install
 rhel_1_1_1_4=$?
 lsmod | egrep "^hfs\s" && rmmod hfs
 if [[ "$rhel_1_1_1_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of hfs filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of hfs filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of hfs filesystems is disabled"
@@ -104,7 +104,7 @@ rhel_1_1_1_5="$(modprobe -n -v hfsplus | grep "^install /bin/true$" || echo "ins
 rhel_1_1_1_5=$?
 lsmod | egrep "^hfsplus\s" && rmmod hfsplus
 if [[ "$rhel_1_1_1_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of hfsplus filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of hfsplus filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of hfsplus filesystems is disabled"
@@ -118,7 +118,7 @@ rhel_1_1_1_6="$(modprobe -n -v squashfs | grep "^install /bin/true$" || echo "in
 rhel_1_1_1_6=$?
 lsmod | egrep "^squashfs\s" && rmmod squashfs
 if [[ "$rhel_1_1_1_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of squashfs filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of squashfs filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of squashfs filesystems is disabled"
@@ -132,7 +132,7 @@ rhel_1_1_1_7="$(modprobe -n -v udf | grep "^install /bin/true$" || echo "install
 rhel_1_1_1_7=$?
 lsmod | egrep "^udf\s" && rmmod udf
 if [[ "$rhel_1_1_1_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of udf filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of udf filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of udf filesystems is disabled"
@@ -146,7 +146,7 @@ rhel_1_1_1_8="$(modprobe -n -v vfat | grep "^install /bin/true$" || echo "instal
 rhel_1_1_1_8=$?
 lsmod | egrep "^vfat\s" && rmmod vfat
 if [[ "$rhel_1_1_1_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure mounting of FAT filesystems is disabled"
+  echo -e "${GREEN}Remediated:${NC} Mounting of FAT filesystems is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure mounting of FAT filesystems is disabled"
@@ -159,7 +159,7 @@ echo -e "${RED}1.1.21${NC} Ensure sticky bit is set on all world-writable direct
 rhel_1_1_21="$(df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t)"
 rhel_1_1_21=$?
 if [[ "$rhel_1_1_21" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure sticky bit is set on all world-writable directories"
+  echo -e "${GREEN}Remediated:${NC} Sticky bit is set on all world-writable directories"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure sticky bit is set on all world-writable directories"
