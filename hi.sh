@@ -172,7 +172,7 @@ echo -e "${RED}1.1.22${NC} Disable Automounting"
 rhel_1_1_22="$(systemctl disable autofs.service)"
 rhel_1_1_22=$?
 if [[ "$rhel_1_1_22" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Disable Automounting"
+  echo -e "${GREEN}Remediated:${NC} Disabled Automounting"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Disable Automounting"
@@ -200,7 +200,7 @@ for file in /etc/yum.repos.d/*; do
 done
 rhel_1_2_2_temp_2="$( ls -1q /etc/yum.repos.d/* | wc -l)"
 if [[ "$rhel_1_2_2" -eq 0 ]] && [[ "$rhel_1_2_2_temp" -eq "rhel_1_2_2_temp_2" ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure gpgcheck is globally activated"
+  echo -e "${GREEN}Remediated:${NC} gpgcheck is globally activated"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure gpgcheck is globally activated"
@@ -219,7 +219,7 @@ echo -e "${RED}1.3.1${NC} Ensure AIDE is installed"
 rhel_1_3_1="$(rpm -q aide || yum -y install aide)"
 rhel_1_3_1=$?
 if [[ "$rhel_1_3_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure AIDE is installed"
+  echo -e "${GREEN}Remediated:${NC} AIDE is installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure AIDE is installed"
@@ -232,7 +232,7 @@ echo -e "${RED}1.3.2${NC} Ensure filesystem integrity is regularly checked"
 rhel_1_3_2="$(crontab -u root -l; crontab -u root -l | egrep -q "^0 5 \* \* \* /usr/sbin/aide --check$" || echo "0 5 * * * /usr/sbin/aide --check" ) | crontab -u root -)"
 rhel_1_3_2=$?
 if [[ "$rhel_1_3_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure filesystem integrity is regularly checked"
+  echo -e "${GREEN}Remediated:${NC} Filesystem integrity is regularly checked"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure filesystem integrity is regularly checked"
@@ -245,7 +245,7 @@ echo -e "${RED}1.3.2${NC} Ensure permissions on bootloader config are configured
 rhel_1_4_1="$(chmod g-r-w-x,o-r-w-x /boot/grub2/grub.cfg)"
 rhel_1_4_1=$?
 if [[ "$rhel_1_4_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on bootloader config are configured"
+  echo -e "${GREEN}Remediated:${NC} Permissions on bootloader config are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on bootloader config are configured"
@@ -264,7 +264,7 @@ echo -e "${RED}1.4.1${NC} Ensure permissions on bootloader config are configured
 rhel_1_4_1="$(chown root:root /boot/grub2/grub.cfg && chmod og-rwx /boot/grub2/grub.cfg && chown root:root /boot/grub2/user.cfg && chmod og-rwx /boot/grub2/user.cfg)"
 rhel_1_4_1=$?
 if [[ "$rhel_1_4_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on bootloader config are configured"
+  echo -e "${GREEN}Remediated:${NC} Permissions on bootloader config are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on bootloader config are configured"
@@ -279,7 +279,7 @@ rhel_1_4_3_rule1=$?
 rhel_1_4_3_rule2="$(egrep -q "^\s*ExecStart" /usr/lib/systemd/system/emergency.service && sed -ri "s/(^[[:space:]]*ExecStart[[:space:]]*=[[:space:]]*).*$/\1-\/bin\/sh -c \"\/sbin\/sulogin; \/usr\/bin\/systemctl --fail --no-block default\"/" /usr/lib/systemd/system/emergency.service || echo "ExecStart=-/bin/sh -c \"/sbin/sulogin; /usr/bin/systemctl --fail --no-block default\"" >> /usr/lib/systemd/system/emergency.service)"
 rhel_1_4_3_rule1=$?
 if [[ "$rhel_1_4_3_rule1" -eq 0 ]] && [[ "$rhel_1_4_3_rule2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure authentication required for single user mode"
+  echo -e "${GREEN}Remediated:${NC} Ensured authentication required for single user mode"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure authentication required for single user mode"
@@ -306,7 +306,7 @@ rhel_1_5_1_temp_4=$?
 rhel_1_5_1_temp_5="$(sysctl -w fs.suid_dumpable=0)"
 rhel_1_5_1_temp_5=$?
 if [[ "$rhel_1_5_1_temp_1" -eq 0 ]] && [[ "$rhel_1_5_1_temp_2" -eq 0 ]] && [[ "$rhel_1_5_1_temp_3" -eq 0 ]] && [[ "$rhel_1_5_1_temp_4" -eq 0 ]] && [[ "$rhel_1_5_1_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure core dumps are restricted"
+  echo -e "${GREEN}Remediated:${NC} Core dumps are restricted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure core dumps are restricted"
@@ -323,7 +323,7 @@ rhel_1_5_3_temp_2=$?
 rhel_1_5_3_temp_3="$(sysctl -w kernel.randomize_va_space=2)"
 rhel_1_5_3_temp_3=$?
 if [[ "$rhel_1_5_3_temp_1" -eq 0 ]] && [[ "$rhel_1_5_3_temp_2" -eq 0 ]] && [[ "$rhel_1_5_3_temp_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure address space layout randomization (ASLR) is enabled"
+  echo -e "${GREEN}Remediated:${NC} Address space layout randomization (ASLR) is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure address space layout randomization (ASLR) is enabled"
@@ -336,7 +336,7 @@ echo -e "${RED}1.5.4${NC} Ensure prelink is disabled"
 rhel_1_5_4="$(rpm -q prelink && yum -y remove prelink)"
 rhel_1_5_4=$?
 if [[ "$rhel_1_5_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure prelink is disabled"
+  echo -e "${GREEN}Remediated:${NC} Prelink is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure prelink is disabled"
@@ -355,7 +355,7 @@ echo -e "${RED}1.6.2${NC} Ensure SELinux is installed"
 rhel_1_6_2="$(rpm -q libselinux || yum -y install libselinux)"
 rhel_1_6_2=$?
 if [[ "$rhel_1_6_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SELinux is installed"
+  echo -e "${GREEN}Remediated:${NC} SELinux is installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SELinux is installed"
@@ -368,7 +368,7 @@ echo -e "${RED}1.6.1.4${NC} Ensure SETroubleshoot is not installed"
 rhel_1_6_1_4="$(rpm -q setroubleshoot && yum -y remove setroubleshoot)"
 rhel_1_6_1_4=$?
 if [[ "$rhel_1_6_1_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SETroubleshoot is not installed"
+  echo -e "${GREEN}Remediated:${NC} SETroubleshoot is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SETroubleshoot is not installed"
@@ -381,7 +381,7 @@ echo -e "${RED}1.6.1.5${NC} Ensure the MCS Translation Service (mcstrans) is not
 rhel_1_6_1_5="$(rpm -q mcstrans && yum -y remove mcstrans)"
 rhel_1_6_1_5=$?
 if [[ "$rhel_1_6_1_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
+  echo -e "${GREEN}Remediated:${NC} The MCS Translation Service (mcstrans) is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure the MCS Translation Service (mcstrans) is not installed"
@@ -400,7 +400,7 @@ echo -e "${RED}1.7.1.1${NC} Ensure message of the day is configured properly"
 rhel_1_7_1_1="$(sed -ri 's/(\\v|\\r|\\m|\\s)//g' /etc/motd)"
 rhel_1_7_1_1=$?
 if [[ "$rhel_1_7_1_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure message of the day is configured properly"
+  echo -e "${GREEN}Remediated:${NC} Message of the day is configured properly"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure message of the day is configured properly"
@@ -413,7 +413,7 @@ echo -e "${RED}1.7.1.2${NC} Ensure local login warning banner is configured prop
 rhel_1_7_1_2="$(echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue)"
 rhel_1_7_1_2=$?
 if [[ "$rhel_1_7_1_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure local login warning banner is configured properly"
+  echo -e "${GREEN}Remediated:${NC} Local login warning banner is configured properly"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure local login warning banner is configured properly"
@@ -426,7 +426,7 @@ echo -e "${RED}1.7.1.3${NC} Ensure remote login warning banner is configured pro
 rhel_1_7_1_3="$(echo "Authorized uses only. All activity may be monitored and reported." > /etc/issue.net)"
 rhel_1_7_1_3=$?
 if [[ "$rhel_1_7_1_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure remote login warning banner is configured properly"
+  echo -e "${GREEN}Remediated:${NC} Remote login warning banner is configured properly"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure remote login warning banner is configured properly"
@@ -439,7 +439,7 @@ echo -e "${RED}1.7.1.4${NC} Ensure permissions on /etc/motd are configured"
 rhel_1_7_1_4="$(chmod -t,u+r+w-x-s,g+r-w-x-s,o+r-w-x /etc/motd)"
 rhel_1_7_1_4=$?
 if [[ "$rhel_1_7_1_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/motd are configured"
+  echo -e "${GREEN}Remediated:${NC} Permissions on /etc/motd are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/motd are configured"
@@ -452,7 +452,7 @@ echo -e "${RED}1.7.1.5${NC} Ensure permissions on /etc/issue are configured"
 rhel_1_7_1_5="$(chmod -t,u+r+w-x-s,g+r-w-x-s,o+r-w-x /etc/issue)"
 rhel_1_7_1_5=$?
 if [[ "$rhel_1_7_1_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/issue are configured"
+  echo -e "${GREEN}Remediated:${NC} Permissions on /etc/issue are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/issue are configured"
@@ -465,7 +465,7 @@ echo -e "${RED}1.7.1.6${NC} Ensure permissions on /etc/issue.net are configured"
 rhel_1_7_1_6="$(chmod -t,u+r+w-x-s,g+r-w-x-s,o+r-w-x /etc/issue.net)"
 rhel_1_7_1_6=$?
 if [[ "$rhel_1_7_1_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/issue.net are configured"
+  echo -e "${GREEN}Remediated:${NC} Permissions on /etc/issue.net are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/issue.net are configured"
@@ -484,7 +484,7 @@ echo -e "${RED}2.1.1${NC} Ensure chargen services are not enabled"
 rhel_2_1_1="$(chkconfig chargen off)"
 rhel_2_1_1=$?
 if [[ "$rhel_2_1_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure chargen services are not enabled"
+  echo -e "${GREEN}Remediated:${NC} chargen services are not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure chargen services are not enabled"
@@ -497,7 +497,7 @@ echo -e "${RED}2.1.2${NC} Ensure daytime services are not enabled"
 rhel_2_1_2="$(chkconfig daytime off)"
 rhel_2_1_2=$?
 if [[ "$rhel_2_1_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure daytime services are not enabled"
+  echo -e "${GREEN}Remediated:${NC} daytime services are not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure daytime services are not enabled"
@@ -510,7 +510,7 @@ echo -e "${RED}2.1.3${NC} Ensure discard services are not enabled"
 rhel_2_1_3="$(chkconfig discard off)"
 rhel_2_1_3=$?
 if [[ "$rhel_2_1_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure discard services are not enabled"
+  echo -e "${GREEN}Remediated:${NC} discard services are not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure discard services are not enabled"
@@ -523,7 +523,7 @@ echo -e "${RED}2.1.4${NC} Ensure echo services are not enabled"
 rhel_2_1_4="$(chkconfig echo off)"
 rhel_2_1_4=$?
 if [[ "$rhel_2_1_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure echo services are not enabled"
+  echo -e "${GREEN}Remediated:${NC} echo services are not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure echo services are not enabled"
@@ -536,7 +536,7 @@ echo -e "${RED}2.1.5${NC} Ensure time services are not enabled"
 rhel_2_1_5="$(chkconfig time off)"
 rhel_2_1_5=$?
 if [[ "$rhel_2_1_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure time services are not enabled"
+  echo -e "${GREEN}Remediated:${NC} time services are not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure time services are not enabled"
@@ -550,7 +550,7 @@ rhel_2_1_6="$(chkconfig tftp off)"
 rhel_2_1_6=$?
 systemctl disable tftp.socket.service
 if [[ "$rhel_2_1_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure tftp server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} tftp server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure tftp server is not enabled"
@@ -563,7 +563,7 @@ echo -e "${RED}2.1.7${NC} Ensure xinetd is not enabled"
 rhel_2_1_7="$(systemctl disable xinetd.service)"
 rhel_2_1_7=$?
 if [[ "$rhel_2_1_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure xinetd is not enabled"
+  echo -e "${GREEN}Remediated:${NC} xinetd is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure xinetd is not enabled"
@@ -582,7 +582,7 @@ echo -e "${RED}2.2.1.1${NC} Ensure time synchronization is in use"
 rhel_2_2_1_1="$(rpm -q ntp || rpm -q chrony || yum -y install chrony)"
 rhel_2_2_1_1=$?
 if [[ "$rhel_2_2_1_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure time synchronization is in use"
+  echo -e "${GREEN}Remediated:${NC} time synchronization is in use"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure time synchronization is in use"
@@ -600,7 +600,7 @@ if rpm -q ntp >/dev/null; then
   rhel_2_2_1_1_temp_3="$(egrep -q "^(\s*)OPTIONS\s*=\s*\"(([^\"]+)?-u\s[^[:space:]\"]+([^\"]+)?|([^\"]+))\"(\s*#.*)?\s*$" /etc/sysconfig/ntpd && sed -ri '/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/ {/^(\s*)OPTIONS\s*=\s*\"[^\"]*-u\s+\S+[^\"]*\"(\s*#.*)?\s*$/! s/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/\1OPTIONS=\"\2 -u ntp:ntp\"\3/ }' /etc/sysconfig/ntpd && sed -ri "s/^(\s*)OPTIONS\s*=\s*\"([^\"]+\s+)?-u\s[^[:space:]\"]+(\s+[^\"]+)?\"(\s*#.*)?\s*$/\1OPTIONS=\"\2\-u ntp:ntp\3\"\4/" /etc/sysconfig/ntpd || echo OPTIONS=\"-u ntp:ntp\" >> /etc/sysconfig/ntpd)"
   rhel_2_2_1_1_temp_3=$?
   if [[ "$rhel_2_2_1_1_temp_1" -eq 0 ]] && [[ "$rhel_2_2_1_1_temp_2" -eq 0 ]] && [[ "$rhel_2_2_1_1_temp_3" -eq 0 ]]; then
-    echo -e "${GREEN}Remediated:${NC} Ensure ntp is configured"
+    echo -e "${GREEN}Remediated:${NC} ntp is configured"
     success=$((success + 1))
   else
     echo -e "${RED}UnableToRemediate:${NC} Ensure ntp is configured"
@@ -615,7 +615,7 @@ else
   rhel_2_2_1_1_temp_3="$(echo OPTIONS=\"-u ntp:ntp\" >> /etc/sysconfig/ntpd)"
   rhel_2_2_1_1_temp_3=$?
   if [[ "$rhel_2_2_1_1_temp_1" -eq 0 ]] && [[ "$rhel_2_2_1_1_temp_2" -eq 0 ]] && [[ "$rhel_2_2_1_1_temp_3" -eq 0 ]]; then
-    echo -e "${GREEN}Remediated:${NC} Ensure ntp is configured"
+    echo -e "${GREEN}Remediated:${NC} ntp is configured"
     success=$((success + 1))
   else
     echo -e "${RED}UnableToRemediate:${NC} Ensure ntp is configured"
@@ -630,7 +630,7 @@ if rpm -q chrony >/dev/null; then
   rhel_2_2_1_3="$(egrep -q "^(\s*)OPTIONS\s*=\s*\"(([^\"]+)?-u\s[^[:space:]\"]+([^\"]+)?|([^\"]+))\"(\s*#.*)?\s*$" /etc/sysconfig/chronyd && sed -ri '/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/ {/^(\s*)OPTIONS\s*=\s*\"[^\"]*-u\s+\S+[^\"]*\"(\s*#.*)?\s*$/! s/^(\s*)OPTIONS\s*=\s*\"([^\"]*)\"(\s*#.*)?\s*$/\1OPTIONS=\"\2 -u chrony\"\3/ }' /etc/sysconfig/chronyd && sed -ri "s/^(\s*)OPTIONS\s*=\s*\"([^\"]+\s+)?-u\s[^[:space:]\"]+(\s+[^\"]+)?\"(\s*#.*)?\s*$/\1OPTIONS=\"\2\-u chrony\3\"\4/" /etc/sysconfig/chronyd || echo OPTIONS=\"-u chrony\" >> /etc/sysconfig/chronyd)"
   rhel_2_2_1_3=$?
   if [[ "$rhel_2_2_1_3" -eq 0 ]]; then
-    echo -e "${GREEN}Remediated:${NC} Ensure chrony is configured"
+    echo -e "${GREEN}Remediated:${NC} chrony is configured"
     success=$((success + 1))
   else
     echo -e "${RED}UnableToRemediate:${NC} Ensure chrony is configured"
@@ -641,7 +641,7 @@ else
   rhel_2_2_1_3="$(echo OPTIONS=\"-u chrony\" >> /etc/sysconfig/chronyd)"
   rhel_2_2_1_3=$?
   if [[ "$rhel_2_2_1_3" -eq 0 ]]; then
-    echo -e "${GREEN}Remediated:${NC} Ensure chrony is configured"
+    echo -e "${GREEN}Remediated:${NC} chrony is configured"
     success=$((success + 1))
   else
     echo -e "${RED}UnableToRemediate:${NC} Ensure chrony is configured"
@@ -655,7 +655,7 @@ echo -e "${RED}2.2.2${NC} Ensure X Window System is not installed"
 rhel_2_2_2="$(yum -y remove xorg-x11*)"
 rhel_2_2_2=$?
 if [[ "$rhel_2_2_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure X Window System is not installed"
+  echo -e "${GREEN}Remediated:${NC} X Window System is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure X Window System is not installed"
@@ -668,7 +668,7 @@ echo -e "${RED}2.2.3${NC} Ensure Avahi Server is not enabled"
 rhel_2_2_3="$(systemctl disable avahi-daemon.service || yum erase avahi -y)"
 rhel_2_2_3=$?
 if [[ "$rhel_2_2_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure Avahi Server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} Avahi Server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure Avahi Server is not enabled"
@@ -681,7 +681,7 @@ echo -e "${RED}2.2.4${NC} Ensure CUPS is not enabled"
 rhel_2_2_4="$(systemctl disable cups.service  || yum erase cups -y)"
 rhel_2_2_4=$?
 if [[ "$rhel_2_2_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure CUPS is not enabled"
+  echo -e "${GREEN}Remediated:${NC} CUPS is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure CUPS is not enabled"
@@ -694,7 +694,7 @@ echo -e "${RED}2.2.5${NC} Ensure DHCP Server is not enabled"
 rhel_2_2_5="$(systemctl disable dhcpd.service || yum erase dhcpd -y)"
 rhel_2_2_5=$?
 if [[ "$rhel_2_2_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure DHCP Server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} DHCP Server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure DHCP Server is not enabled"
@@ -707,7 +707,7 @@ echo -e "${RED}2.2.6${NC} Ensure LDAP server is not enabled"
 rhel_2_2_6="$(systemctl disable slapd.service || yum erase slapd -y)"
 rhel_2_2_6=$?
 if [[ "$rhel_2_2_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure LDAP server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} LDAP server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure LDAP server is not enabled"
@@ -722,7 +722,7 @@ rhel_2_2_7_temp_1=$?
 rhel_2_2_7_temp_2="$(systemctl disable rpcbind.service || yum erase rpcbind -y)"
 rhel_2_2_7_temp_2=$?
 if [[ "$rhel_2_2_7_temp_1" -eq 0 ]] && [[ "$rhel_2_2_7_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure NFS and RPC are not enabled"
+  echo -e "${GREEN}Remediated:${NC} NFS and RPC are not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure NFS and RPC are not enabled"
@@ -735,7 +735,7 @@ echo -e "${RED}2.2.8${NC} Ensure DNS Server is not enabled"
 rhel_2_2_8="$(systemctl disable named.service || yum erase named -y)"
 rhel_2_2_8=$?
 if [[ "$rhel_2_2_8" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure DNS Server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} DNS Server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure DNS Server is not enabled"
@@ -748,7 +748,7 @@ echo -e "${RED}2.2.9${NC} Ensure FTP Server is not enabled"
 rhel_2_2_9="$(systemctl disable vsftpd.service || yum erase vsftpd -y)"
 rhel_2_2_9=$?
 if [[ "$rhel_2_2_9" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure FTP Server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} FTP Server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure FTP Server is not enabled"
@@ -761,7 +761,7 @@ echo -e "${RED}2.2.10${NC} Ensure HTTP server is not enabled"
 rhel_2_2_10="$(systemctl disable httpd.service || yum erase httpd -y)"
 rhel_2_2_10=$?
 if [[ "$rhel_2_2_10" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure HTTP server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} HTTP server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure HTTP server is not enabled"
@@ -774,7 +774,7 @@ echo -e "${RED}2.2.11${NC} Ensure IMAP and POP3 server is not enabled"
 rhel_2_2_11="$(systemctl disable dovecot.service || yum erase dovecot -y)"
 rhel_2_2_11=$?
 if [[ "$rhel_2_2_11" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure IMAP and POP3 server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} IMAP and POP3 server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure IMAP and POP3 server is not enabled"
@@ -787,7 +787,7 @@ echo -e "${RED}2.2.12${NC} Ensure Samba is not enabled"
 rhel_2_2_12="$(systemctl disable smb.service || yum erase smb -y)"
 rhel_2_2_12=$?
 if [[ "$rhel_2_2_12" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure Samba is not enabled"
+  echo -e "${GREEN}Remediated:${NC} Samba is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure Samba is not enabled"
@@ -800,7 +800,7 @@ echo -e "${RED}2.2.13${NC} Ensure HTTP Proxy Server is not enabled"
 rhel_2_2_13="$(systemctl disable squid.service || yum erase squid -y)"
 rhel_2_2_13=$?
 if [[ "$rhel_2_2_13" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure HTTP Proxy Server is not enabled"
+  echo -e "${GREEN}Remediated:${NC}HTTP Proxy Server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure HTTP Proxy Server is not enabled"
@@ -813,7 +813,7 @@ echo -e "${RED}2.2.14${NC} Ensure SNMP Server is not enabled"
 rhel_2_2_14="$(systemctl disable snmpd.service || yum erase snmpd -y)"
 rhel_2_2_14=$?
 if [[ "$rhel_2_2_14" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SNMP Server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} SNMP Server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SNMP Server is not enabled"
@@ -826,7 +826,7 @@ echo -e "${RED}2.2.16${NC} Ensure NIS Server is not enabled"
 rhel_2_2_16="$(systemctl disable ypserv.service || yum erase ypserv -y)"
 rhel_2_2_16=$?
 if [[ "$rhel_2_2_16" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure NIS Server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} NIS Server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure NIS Server is not enabled"
@@ -841,7 +841,7 @@ rhel_2_2_17=$?
 systemctl disable rlogin.socket.service
 systemctl disable rexec.socket.service
 if [[ "$rhel_2_2_17" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure rsh server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} rsh server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure rsh server is not enabled"
@@ -854,7 +854,7 @@ echo -e "${RED}2.2.18${NC} Ensure talk server is not enabled"
 rhel_2_2_18="$(systemctl disable ntalk.service || yum erase ntalk -y)"
 rhel_2_2_18=$?
 if [[ "$rhel_2_2_18" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure talk server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} talk server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure talk server is not enabled"
@@ -867,7 +867,7 @@ echo -e "${RED}2.2.19${NC} Ensure telnet server is not enabled"
 rhel_2_2_19="$(systemctl disable telnet.socket.service || yum erase telnet -y)"
 rhel_2_2_19=$?
 if [[ "$rhel_2_2_19" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure telnet server is not enabled"
+  echo -e "${GREEN}Remediated:${NC} telnet server is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure telnet server is not enabled"
@@ -880,7 +880,7 @@ echo -e "${RED}2.2.21${NC} Ensure rsync service is not enabled"
 rhel_2_2_21="$(systemctl disable rsyncd.service || yum erase rsyncd -y)"
 rhel_2_2_21=$?
 if [[ "$rhel_2_2_21" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure rsync service is not enabled"
+  echo -e "${GREEN}Remediated:${NC} rsync service is not enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure rsync service is not enabled"
@@ -899,7 +899,7 @@ echo -e "${RED}2.3.1${NC} Ensure NIS Client is not installed"
 rhel_2_3_1="$(rpm -q ypbind && yum -y erase ypbind)"
 rhel_2_3_1=$?
 if [[ "$rhel_2_3_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure NIS Client is not installed"
+  echo -e "${GREEN}Remediated:${NC} NIS Client is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure NIS Client is not installed"
@@ -912,7 +912,7 @@ echo -e "${RED}2.3.2${NC} Ensure rsh client is not installed"
 rhel_2_3_2="$(rpm -q rsh && yum -y erase rsh)"
 rhel_2_3_2=$?
 if [[ "$rhel_2_3_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure rsh client is not installed"
+  echo -e "${GREEN}Remediated:${NC} rsh client is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure rsh client is not installed"
@@ -925,7 +925,7 @@ echo -e "${RED}2.3.3${NC} Ensure talk client is not installed"
 rhel_2_3_3="$(rpm -q talk && yum -y erase talk)"
 rhel_2_3_3=$?
 if [[ "$rhel_2_3_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure talk client is not installed"
+  echo -e "${GREEN}Remediated:${NC} talk client is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure talk client is not installed"
@@ -938,7 +938,7 @@ echo -e "${RED}2.3.4${NC} Ensure telnet client is not installed"
 rhel_2_3_4="$(rpm -q telnet && yum -y erase telnet)"
 rhel_2_3_4=$?
 if [[ "$rhel_2_3_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure telnet client is not installed"
+  echo -e "${GREEN}Remediated:${NC} telnet client is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure telnet client is not installed"
@@ -951,7 +951,7 @@ echo -e "${RED}2.3.5${NC} Ensure LDAP client is not installed"
 rhel_2_3_5="$(rpm -q openldap-clients && yum -y erase openldap-clients)"
 rhel_2_3_5=$?
 if [[ "$rhel_2_3_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure LDAP client is not installed"
+  echo -e "${GREEN}Remediated:${NC} LDAP client is not installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure LDAP client is not installed"
@@ -976,7 +976,7 @@ rhel_3_1_1_temp_3=$?
 rhel_3_1_1_temp_4="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_1_1_temp_4=$?
 if [[ "$rhel_3_1_1_temp_1" -eq 0 ]] && [[ "$rhel_3_1_1_temp_2" -eq 0 ]] && [[ "$rhel_3_1_1_temp_3" -eq 0 ]] && [[ "$rhel_3_1_1_temp_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure IP forwarding is disabled"
+  echo -e "${GREEN}Remediated:${NC} IP forwarding is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure IP forwarding is disabled"
@@ -997,7 +997,7 @@ rhel_3_1_2_temp_4=$?
 rhel_3_1_2_temp_5="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_1_2_temp_5=$?
 if [[ "$rhel_3_1_2_temp_1" -eq 0 ]] && [[ "$rhel_3_1_2_temp_2" -eq 0 ]] && [[ "$rhel_3_1_2_temp_3" -eq 0 ]] && [[ "$rhel_3_1_2_temp_4" -eq 0 ]] && [[ "$rhel_3_1_2_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure packet redirect sending is disabled"
+  echo -e "${GREEN}Remediated:${NC} packet redirect sending is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure packet redirect sending is disabled"
@@ -1024,7 +1024,7 @@ rhel_3_2_1_temp_4=$?
 rhel_3_2_1_temp_5="$sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_1_temp_5=$?
 if [[ "$rhel_3_2_1_temp_1" -eq 0 ]] && [[ "$rhel_3_2_1_temp_2" -eq 0 ]] && [[ "$rhel_3_2_1_temp_3" -eq 0 ]] && [[ "$rhel_3_2_1_temp_4" -eq 0 ]] && [[ "$rhel_3_2_1_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure source routed packets are not accepted"
+  echo -e "${GREEN}Remediated:${NC} source routed packets are not accepted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure source routed packets are not accepted"
@@ -1045,7 +1045,7 @@ rhel_3_2_2_temp_4=$?
 rhel_3_2_2_temp_5="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_2_temp_5=$?
 if [[ "$rhel_3_2_2_temp_1" -eq 0 ]] && [[ "$rhel_3_2_2_temp_2" -eq 0 ]] && [[ "$rhel_3_2_2_temp_3" -eq 0 ]] && [[ "$rhel_3_2_2_temp_4" -eq 0 ]] && [[ "$rhel_3_2_2_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure ICMP redirects are not accepted"
+  echo -e "${GREEN}Remediated:${NC} ICMP redirects are not accepted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure ICMP redirects are not accepted"
@@ -1066,7 +1066,7 @@ rhel_3_2_3_temp_4=$?
 rhel_3_2_3_temp_5="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_3_temp_5=$?
 if [[ "$rhel_3_2_3_temp_1" -eq 0 ]] && [[ "$rhel_3_2_3_temp_2" -eq 0 ]] && [[ "$rhel_3_2_3_temp_3" -eq 0 ]] && [[ "$rhel_3_2_3_temp_4" -eq 0 ]] && [[ "$rhel_3_2_3_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure secure ICMP redirects are not accepted"
+  echo -e "${GREEN}Remediated:${NC} secure ICMP redirects are not accepted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure secure ICMP redirects are not accepted"
@@ -1087,7 +1087,7 @@ rhel_3_2_4_temp_4=$?
 rhel_3_2_4_temp_5="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_4_temp_5=$?
 if [[ "$rhel_3_2_4_temp_1" -eq 0 ]] && [[ "$rhel_3_2_4_temp_2" -eq 0 ]] && [[ "$rhel_3_2_4_temp_3" -eq 0 ]] && [[ "$rhel_3_2_4_temp_4" -eq 0 ]] && [[ "$rhel_3_2_4_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure suspicious packets are logged"
+  echo -e "${GREEN}Remediated:${NC} suspicious packets are logged"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure suspicious packets are logged"
@@ -1104,7 +1104,7 @@ rhel_3_2_5_temp_2=$?
 rhel_3_2_5_temp_3="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_5_temp_3=$?
 if [[ "$rhel_3_2_5_temp_1" -eq 0 ]] && [[ "$rhel_3_2_5_temp_2" -eq 0 ]] && [[ "$rhel_3_2_5_temp_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure broadcast ICMP requests are ignored"
+  echo -e "${GREEN}Remediated:${NC} broadcast ICMP requests are ignored"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure broadcast ICMP requests are ignored"
@@ -1121,7 +1121,7 @@ rhel_3_2_6_temp_2=$?
 rhel_3_2_6_temp_3="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_6_temp_3=$?
 if [[ "$rhel_3_2_6_temp_1" -eq 0 ]] && [[ "$rhel_3_2_6_temp_2" -eq 0 ]] && [[ "$rhel_3_2_6_temp_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure bogus ICMP responses are ignored"
+  echo -e "${GREEN}Remediated:${NC} bogus ICMP responses are ignored"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure bogus ICMP responses are ignored"
@@ -1142,7 +1142,7 @@ rhel_3_2_7_temp_4=$?
 rhel_3_2_7_temp_5="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_7_temp_5=$?
 if [[ "$rhel_3_2_7_temp_1" -eq 0 ]] && [[ "$rhel_3_2_7_temp_2" -eq 0 ]] && [[ "$rhel_3_2_7_temp_3" -eq 0 ]] && [[ "$rhel_3_2_7_temp_4" -eq 0 ]] && [[ "$rhel_3_2_7_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure Reverse Path Filtering is enabled"
+  echo -e "${GREEN}Remediated:${NC} Reverse Path Filtering is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure Reverse Path Filtering is enabled"
@@ -1159,7 +1159,7 @@ rhel_3_2_8_temp_2=$?
 rhel_3_2_8_temp_3="$(sysctl -w net.ipv4.route.flush=1)"
 rhel_3_2_8_temp_3=$?
 if [[ "$rhel_3_2_8_temp_1" -eq 0 ]] && [[ "$rhel_3_2_8_temp_2" -eq 0 ]] && [[ "$rhel_3_2_8_temp_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure TCP SYN Cookies is enabled"
+  echo -e "${GREEN}Remediated:${NC} TCP SYN Cookies is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure TCP SYN Cookies is enabled"
@@ -1186,7 +1186,7 @@ rhel_3_3_1_temp_4=$?
 rhel_3_3_1_temp_5="$(sysctl -w net.ipv6.route.flush=1)"
 rhel_3_3_1_temp_5=$?
 if [[ "$rhel_3_3_1_temp_1" -eq 0 ]] && [[ "$rhel_3_3_1_temp_2" -eq 0 ]] && [[ "$rhel_3_3_1_temp_3" -eq 0 ]] && [[ "$rhel_3_3_1_temp_4" -eq 0 ]] && [[ "$rhel_3_3_1_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure IPv6 router advertisements are not accepted"
+  echo -e "${GREEN}Remediated:${NC} IPv6 router advertisements are not accepted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure IPv6 router advertisements are not accepted"
@@ -1208,7 +1208,7 @@ rhel_3_3_2_temp_4=$?
 rhel_3_3_2_temp_5="$(sysctl -w net.ipv6.route.flush=1)"
 rhel_3_3_2_temp_5=$?
 if [[ "$rhel_3_3_2_temp_1" -eq 0 ]] && [[ "$rhel_3_3_2_temp_2" -eq 0 ]] && [[ "$rhel_3_3_2_temp_3" -eq 0 ]] && [[ "$rhel_3_3_2_temp_4" -eq 0 ]] && [[ "$rhel_3_3_2_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure IPv6 redirects are not accepted"
+  echo -e "${GREEN}Remediated:${NC} IPv6 redirects are not accepted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure IPv6 redirects are not accepted"
@@ -1229,7 +1229,7 @@ rhel_3_4_1_temp_1=$?
 rhel_3_4_1_temp_2="$(rpm -q tcp_wrappers-libs || yum -y install tcp_wrappers-libs)"
 rhel_3_4_1_temp_2=$?
 if [[ "$rhel_3_4_1_temp_1" -eq 0 ]] && [[ "$rhel_3_4_1_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure TCP Wrappers is installed"
+  echo -e "${GREEN}Remediated:${NC} TCP Wrappers is installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure TCP Wrappers is installed"
@@ -1242,7 +1242,7 @@ echo -e "${RED}3.4.2${NC} Ensure /etc/hosts.allow is configured"
 rhel_3_4_2="$(touch /etc/hosts.allow)"
 rhel_3_4_2=$?
 if [[ "$rhel_3_4_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure /etc/hosts.allow is configured"
+  echo -e "${GREEN}Remediated:${NC}  /etc/hosts.allow is configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure /etc/hosts.allow is configured"
@@ -1255,7 +1255,7 @@ echo -e "${RED}3.4.3${NC} Ensure /etc/hosts.deny is configured"
 rhel_3_4_3="$(touch /etc/hosts.deny)"
 rhel_3_4_3=$?
 if [[ "$rhel_3_4_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure /etc/hosts.deny is configured"
+  echo -e "${GREEN}Remediated:${NC} /etc/hosts.deny is configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure /etc/hosts.deny is configured"
@@ -1268,7 +1268,7 @@ echo -e "${RED}3.4.4${NC} Ensure permissions on /etc/hosts.allow are configured"
 rhel_3_4_4="$(chmod -t,u+r+w-x-s,g+r-w-x-s,o+r-w-x /etc/hosts.allow)"
 rhel_3_4_4=$?
 if [[ "$rhel_3_4_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/hosts.allow are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/hosts.allow are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/hosts.allow are configured"
@@ -1281,7 +1281,7 @@ echo -e "${RED}3.4.5${NC} Ensure permissions on /etc/hosts.deny are configured"
 rhel_3_4_5="$(chmod -t,u+r+w-x-s,g+r-w-x-s,o+r-w-x /etc/hosts.deny)"
 rhel_3_4_5=$?
 if [[ "$rhel_3_4_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/hosts.deny are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/hosts.deny are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/hosts.deny are configured"
@@ -1301,7 +1301,7 @@ rhel_3_5_1="$(modprobe -n -v dccp | grep "^install /bin/true$" || echo "install 
 rhel_3_5_1=$?
 lsmod | egrep "^dccp\s" && rmmod dccp
 if [[ "$rhel_3_5_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure DCCP is disabled"
+  echo -e "${GREEN}Remediated:${NC} DCCP is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure DCCP is disabled"
@@ -1315,7 +1315,7 @@ rhel_3_5_2="$(modprobe -n -v sctp | grep "^install /bin/true$" || echo "install 
 rhel_3_5_2=$?
 lsmod | egrep "^sctp\s" && rmmod sctp
 if [[ "$rhel_3_5_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SCTP is disabled"
+  echo -e "${GREEN}Remediated:${NC} SCTP is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SCTP is disabled"
@@ -1329,7 +1329,7 @@ rhel_3_5_3="$(modprobe -n -v rds | grep "^install /bin/true$" || echo "install r
 rhel_3_5_3=$?
 lsmod | egrep "^rds\s" && rmmod rds
 if [[ "$rhel_3_5_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure RDS is disabled"
+  echo -e "${GREEN}Remediated:${NC} RDS is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure RDS is disabled"
@@ -1343,7 +1343,7 @@ rhel_3_5_4="$(modprobe -n -v tipc | grep "^install /bin/true$" || echo "install 
 rhel_3_5_4=$?
 lsmod | egrep "^tipc\s" && rmmod tipc
 if [[ "$rhel_3_5_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure TIPC is disabled"
+  echo -e "${GREEN}Remediated:${NC} TIPC is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure TIPC is disabled"
@@ -1362,7 +1362,7 @@ echo -e "${RED}3.6.1${NC} Ensure iptables is installed"
 rhel_3_6_1="$(rpm -q iptables || yum -y install iptables)"
 rhel_3_6_1=$?
 if [[ "$rhel_3_6_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure iptables is installed"
+  echo -e "${GREEN}Remediated:${NC} iptables is installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure iptables is installed"
@@ -1385,7 +1385,7 @@ rhel_4_1_1_2_temp_2=$?
 rhel_4_1_1_2_temp_3="$(egrep -q "^(\s*)admin_space_left_action\s*=\s*\S+(\s*#.*)?\s*$" /etc/audit/auditd.conf && sed -ri "s/^(\s*)admin_space_left_action\s*=\s*\S+(\s*#.*)?\s*$/\1admin_space_left_action = halt\2/" /etc/audit/auditd.conf || echo "admin_space_left_action = halt" >> /etc/audit/auditd.conf)"
 rhel_4_1_1_2_temp_3=$?
 if [[ "$rhel_4_1_1_2_temp_1" -eq 0 ]] && [[ "$rhel_4_1_1_2_temp_2" -eq 0 ]] && [[ "$rhel_4_1_1_2_temp_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure system is disabled when audit logs are full"
+  echo -e "${GREEN}Remediated:${NC} system is disabled when audit logs are full"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure system is disabled when audit logs are full"
@@ -1398,7 +1398,7 @@ echo -e "${RED}4.1.1.3${NC} Ensure audit logs are not automatically deleted"
 rhel_4_1_1_3="$(egrep -q "^(\s*)max_log_file_action\s*=\s*\S+(\s*#.*)?\s*$" /etc/audit/auditd.conf && sed -ri "s/^(\s*)max_log_file_action\s*=\s*\S+(\s*#.*)?\s*$/\1max_log_file_action = keep_logs\2/" /etc/audit/auditd.conf || echo "max_log_file_action = keep_logs" >> /etc/audit/auditd.conf)"
 rhel_4_1_1_3=$?
 if [[ "$rhel_4_1_1_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure audit logs are not automatically deleted"
+  echo -e "${GREEN}Remediated:${NC} audit logs are not automatically deleted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure audit logs are not automatically deleted"
@@ -1411,7 +1411,7 @@ echo -e "${RED}4.1.2${NC} Ensure auditd service is enabled"
 rhel_4_1_2="$(systemctl enable auditd.service)"
 rhel_4_1_2=$?
 if [[ "$rhel_4_1_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure auditd service is enabled"
+  echo -e "${GREEN}Remediated:${NC} auditd service is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure auditd service is enabled"
@@ -1426,7 +1426,7 @@ rhel_4_1_3_temp_1=$?
 rhel_4_1_3_temp_2="$(grub2-mkconfig -o /boot/grub2/grub.cfg)"
 rhel_4_1_3_temp_2=$?
 if [[ "$rhel_4_1_3_temp_1" -eq 0 ]] && [[ "$rhel_4_1_3_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure auditing for processes that start prior to auditd is enabled"
+  echo -e "${GREEN}Remediated:${NC} auditing for processes that start prior to auditd is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure auditing for processes that start prior to auditd is enabled"
@@ -1445,7 +1445,7 @@ uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+-F\s+arc
 rhel_4_1_4_temp_3="$(uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+-F\s+arch=b64\s+-S\s+clock_settime\s+-k\s+time-change\s*$" /etc/audit/rules.d/audit.rules || echo "-a always,exit -F arch=b64 -S clock_settime -k time-change" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_4_temp_3=$?
 if [[ "$rhel_4_1_4_temp_1" -eq 0 ]] && [[ "$rhel_4_1_4_temp_2" -eq 0 ]] && [[ "$rhel_4_1_4_temp_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure events that modify date and time information are collected"
+  echo -e "${GREEN}Remediated:${NC} events that modify date and time information are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure events that modify date and time information are collected"
@@ -1466,7 +1466,7 @@ rhel_4_1_5_temp_4=$?
 rhel_4_1_5_temp_5="$(egrep "^-w\s+/etc/security/opasswd\s+-p\s+wa\s+-k\s+identity\s*$" /etc/audit/rules.d/audit.rules || echo "-w /etc/security/opasswd -p wa -k identity" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_5_temp_5=$?
 if [[ "$rhel_4_1_5_temp_1" -eq 0 ]] && [[ "$rhel_4_1_5_temp_2" -eq 0 ]] && [[ "$rhel_4_1_5_temp_3" -eq 0 ]] && [[ "$rhel_4_1_5_temp_4" -eq 0 ]] && [[ "$rhel_4_1_5_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure events that modify user/group information are collected"
+  echo -e "${GREEN}Remediated:${NC} events that modify user/group information are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure events that modify user/group information are collected"
@@ -1488,7 +1488,7 @@ egrep "^-w\s+/etc/sysconfig/network\s+-p\s+wa\s+-k\s+system-locale\s*$" /etc/aud
 rhel_4_1_6_temp_5="$(uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+-F\s+arch=b64\s+-S\s+sethostname\s+-S\s+setdomainname\s+-k\s+system-locale\s*$" /etc/audit/rules.d/audit.rules || echo "-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_6_temp_5=$?
 if [[ "$rhel_4_1_6_temp_1" -eq 0 ]] && [[ "$rhel_4_1_6_temp_2" -eq 0 ]] && [[ "$rhel_4_1_6_temp_3" -eq 0 ]] && [[ "$rhel_4_1_6_temp_4" -eq 0 ]] && [[ "$rhel_4_1_6_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure events that modify the system's network environment are collected"
+  echo -e "${GREEN}Remediated:${NC} events that modify the system's network environment are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure events that modify the system's network environment are collected"
@@ -1501,7 +1501,7 @@ echo -e "${RED}4.1.7${NC} Ensure events that modify the system's Mandatory Acces
 rhel_4_1_7="$(egrep "^-w\s+/etc/selinux/\s+-p\s+wa\s+-k\s+MAC-policy\s*$" /etc/audit/rules.d/audit.rules || echo "-w /etc/selinux/ -p wa -k MAC-policy" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_7=$?
 if [[ "$rhel_4_1_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure events that modify the system's Mandatory Access Controls are collected"
+  echo -e "${GREEN}Remediated:${NC} events that modify the system's Mandatory Access Controls are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure events that modify the system's Mandatory Access Controls are collected"
@@ -1516,7 +1516,7 @@ rhel_4_1_8_temp_1=$?
 rhel_4_1_8_temp_2="$(egrep "^-w\s+/var/log/lastlog\s+-p\s+wa\s+-k\s+logins\s*$" /etc/audit/rules.d/audit.rules || echo "-w /var/log/lastlog -p wa -k logins" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_8_temp_2=$?
 if [[ "$rhel_4_1_8_temp_1" -eq 0 ]] && [[ "$rhel_4_1_8_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure login and logout events are collected"
+  echo -e "${GREEN}Remediated:${NC} login and logout events are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure login and logout events are collected"
@@ -1533,7 +1533,7 @@ rhel_4_1_9_temp_2=$?
 rhel_4_1_9_temp_3="$(egrep "^-w\s+/var/log/btmp\s+-p\s+wa\s+-k\s+session\s*$" /etc/audit/rules.d/audit.rules || echo "-w /var/log/btmp -p wa -k session" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_9_temp_3=$?
 if [[ "$rhel_4_1_9_temp_1" -eq 0 ]] && [[ "$rhel_4_1_9_temp_2" -eq 0 ]] && [[ "$rhel_4_1_9_temp_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure session initiation information is collected"
+  echo -e "${GREEN}Remediated:${NC} session initiation information is collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure session initiation information is collected"
@@ -1556,7 +1556,7 @@ rhel_4_1_10_temp_5=$?
 rhel_4_1_10_temp_6="$(uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+-F\s+arch=b64\s+-S\s+setxattr\s+-S\s+lsetxattr\s+-S\s+fsetxattr\s+-S\s+removexattr\s+-S\s+lremovexattr\s+-S\s+fremovexattr\s+-F\s+auid>=1000\s+-F\s+auid!=4294967295\s+-k\s+perm_mod\s*$" /etc/audit/rules.d/audit.rules || echo "-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_10_temp_6=$?
 if [[ "$rhel_4_1_10_temp_1" -eq 0 ]] && [[ "$rhel_4_1_10_temp_2" -eq 0 ]] && [[ "$rhel_4_1_10_temp_3" -eq 0 ]] && [[ "$rhel_4_1_10_temp_4" -eq 0 ]] && [[ "$rhel_4_1_10_temp_5" -eq 0 ]] && [[ "$rhel_4_1_10_temp_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure discretionary access control permission modification events are collected"
+  echo -e "${GREEN}Remediated:${NC} discretionary access control permission modification events are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure discretionary access control permission modification events are collected"
@@ -1575,7 +1575,7 @@ rhel_4_1_11_temp_3=$?
 rhel_4_1_11_temp_4="$(uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+-F\s+arch=b64\s+-S\s+creat\s+-S\s+open\s+-S\s+openat\s+-S\s+truncate\s+-S\s+ftruncate\s+-F\s+exit=-EPERM\s+-F\s+auid>=1000\s+-F\s+auid!=4294967295\s+-k\s+access\s*$" /etc/audit/rules.d/audit.rules || echo "-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_11_temp_4=$?
 if [[ "$rhel_4_1_11_temp_1" -eq 0 ]] && [[ "$rhel_4_1_11_temp_2" -eq 0 ]] && [[ "$rhel_4_1_11_temp_3" -eq 0 ]] && [[ "$rhel_4_1_11_temp_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure unsuccessful unauthorized file access attempts are collected"
+  echo -e "${GREEN}Remediated:${NC} unsuccessful unauthorized file access attempts are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure unsuccessful unauthorized file access attempts are collected"
@@ -1589,7 +1589,7 @@ rhel_4_1_12_temp=0
 for file in `find / -xdev \( -perm -4000 -o -perm -2000 \) -type f`; do egrep -q "^\s*-a\s+(always,exit|exit,always)\s+-F\s+path=$file\s+-F\s+perm=x\s+-F\s+auid>=1000\s+-F\s+auid!=4294967295\s+-k\s+privileged\s*(#.*)?$" /etc/audit/rules.d/audit.rules || echo "-a always,exit -F path=$file -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged" >> /etc/audit/rules.d/audit.rules;  ((rhel_4_1_12_temp=rhel_4_1_12_temp+1)); done
 rhel_4_1_12_temp_2="$( ls -1q / | wc -l)"
 if [[ "$rhel_4_1_12_temp" -ge "$rhel_4_1_12_temp_2" ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure use of privileged commands is collected"
+  echo -e "${GREEN}Remediated:${NC} use of privileged commands is collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure use of privileged commands is collected"
@@ -1604,7 +1604,7 @@ rhel_4_1_13_temp_1=$?
 rhel_4_1_13_temp_2="$(uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+-F\s+arch=b64\s+-S\s+mount\s+-F\s+auid>=1000\s+-F\s+auid!=4294967295\s+-k\s+mounts\s*$" /etc/audit/rules.d/audit.rules || echo "-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_13_temp_2=$?
 if [[ "$rhel_4_1_13_temp_1" -eq 0 ]] && [[ "$rhel_4_1_13_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure successful file system mounts are collected"
+  echo -e "${GREEN}Remediated:${NC} successful file system mounts are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure successful file system mounts are collected"
@@ -1619,7 +1619,7 @@ rhel_4_1_14_temp_1=$?
 rhel_4_1_14_temp_2="$(uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+-F\s+arch=b64\s+-S\s+unlink\s+-S\s+unlinkat\s+-S\s+rename\s+-S\s+renameat\s+-F\s+auid>=1000\s+-F\s+auid!=4294967295\s+-k\s+delete\s*$" /etc/audit/rules.d/audit.rules || echo "-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_14_temp_2=$?
 if [[ "$rhel_4_1_14_temp_1" -eq 0 ]] && [[ "$rhel_4_1_14_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure file deletion events by users are collected"
+  echo -e "${GREEN}Remediated:${NC} file deletion events by users are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure file deletion events by users are collected"
@@ -1634,7 +1634,7 @@ rhel_4_1_15_temp_1=$?
 rhel_4_1_15_temp_2="$(egrep "^-w\s+/etc/sudoers.d\s+-p\s+wa\s+-k\s+scope\s*$" /etc/audit/rules.d/audit.rules || echo "-w /etc/sudoers.d -p wa -k scope" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_15_temp_2=$?
 if [[ "$rhel_4_1_15_temp_1" -eq 0 ]] && [[ "$rhel_4_1_15_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure changes to system administration scope (sudoers) is collected"
+  echo -e "${GREEN}Remediated:${NC} changes to system administration scope (sudoers) is collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure changes to system administration scope (sudoers) is collected"
@@ -1647,7 +1647,7 @@ echo -e "${RED}4.1.16${NC} Ensure system administrator actions (sudolog) are col
 rhel_4_1_16="$(egrep "^-w\s+/var/log/sudo.log\s+-p\s+wa\s+-k\s+actions\s*$" /etc/audit/rules.d/audit.rules || echo "-w /var/log/sudo.log -p wa -k actions" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_16=$?
 if [[ "$rhel_4_1_16" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure system administrator actions (sudolog) are collected"
+  echo -e "${GREEN}Remediated:${NC} system administrator actions (sudolog) are collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure system administrator actions (sudolog) are collected"
@@ -1668,7 +1668,7 @@ rhel_4_1_17_temp_4=$?
 rhel_4_1_17_temp_5="$(uname -p | grep -q 'x86_64' && egrep "^-a\s+(always,exit|exit,always)\s+arch=b64\s+-S\s+init_module\s+-S\s+delete_module\s+-k\s+modules\s*$" /etc/audit/rules.d/audit.rules || echo "-a always,exit arch=b64 -S init_module -S delete_module -k modules" >> /etc/audit/rules.d/audit.rules)"
 rhel_4_1_17_temp_5=$?
 if [[ "$rhel_4_1_17_temp_1" -eq 0 ]] && [[ "$rhel_4_1_17_temp_2" -eq 0 ]] && [[ "$rhel_4_1_17_temp_3" -eq 0 ]] && [[ "$rhel_4_1_17_temp_4" -eq 0 ]] && [[ "$rhel_4_1_17_temp_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure kernel module loading and unloading is collected"
+  echo -e "${GREEN}Remediated:${NC} kernel module loading and unloading is collected"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure kernel module loading and unloading is collected"
@@ -1682,7 +1682,7 @@ rhel_4_1_18="$(egrep "^-e\s+2\s*$" /etc/audit/rules.d/audit.rules || echo "-e 2"
 rhel_4_1_18=$?
 augenrules --load
 if [[ "$rhel_4_1_18" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure the audit configuration is immutable"
+  echo -e "${GREEN}Remediated:${NC} the audit configuration is immutable"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure the audit configuration is immutable"
@@ -1701,7 +1701,7 @@ echo -e "${RED}4.2.1.1${NC} Ensure rsyslog Service is enabled"
 rhel_4_2_1_1="$(rpm -q rsyslog && yum install rsyslog -y && systemctl enable rsyslog.service)"
 rhel_4_2_1_1=$?
 if [[ "$rhel_4_2_1_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure rsyslog Service is enabled"
+  echo -e "${GREEN}Remediated:${NC} rsyslog Service is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure rsyslog Service is enabled"
@@ -1714,7 +1714,7 @@ echo -e "${RED}4.2.2.1${NC} Ensure syslog-ng service is enabled"
 rhel_4_2_2_1="$(rpm -q syslog-ng && systemctl enable syslog-ng.service)"
 rhel_4_2_2_1=$?
 if [[ "$rhel_4_2_2_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure syslog-ng service is enabled"
+  echo -e "${GREEN}Remediated:${NC} syslog-ng service is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure syslog-ng service is enabled"
@@ -1727,7 +1727,7 @@ echo -e "${RED}4.2.3${NC} Ensure rsyslog or syslog-ng is installed"
 rhel_4_2_3="$(rpm -q rsyslog || rpm -q syslog-ng || yum -y install rsyslog)"
 rhel_4_2_3=$?
 if [[ "$rhel_4_2_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure rsyslog or syslog-ng is installed"
+  echo -e "${GREEN}Remediated:${NC} rsyslog or syslog-ng is installed"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure rsyslog or syslog-ng is installed"
@@ -1740,7 +1740,7 @@ echo -e "${RED}4.2.4${NC} Ensure permissions on all logfiles are configured"
 rhel_4_2_4="$(chmod -R g-w-x,o-r-w-x /var/log/*)"
 rhel_4_2_4=$?
 if [[ "$rhel_4_2_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on all logfiles are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on all logfiles are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on all logfiles are configuredd"
@@ -1759,7 +1759,7 @@ echo -e "${RED}5.1.1${NC} Ensure cron daemon is enabled"
 rhel_5_1_1="$(systemctl enable crond.service)"
 rhel_5_1_1=$?
 if [[ "$rhel_5_1_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure cron daemon is enabled"
+  echo -e "${GREEN}Remediated:${NC} cron daemon is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure cron daemon is enabled"
@@ -1772,7 +1772,7 @@ echo -e "${RED}5.1.2${NC} Ensure permissions on /etc/crontab are configured"
 rhel_5_1_2="$(chmod g-r-w-x,o-r-w-x /etc/crontab)"
 rhel_5_1_2=$?
 if [[ "$rhel_5_1_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/crontab are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/crontab are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/crontab are configured"
@@ -1785,7 +1785,7 @@ echo -e "${RED}5.1.3${NC} Ensure permissions on /etc/cron.hourly are configured"
 rhel_5_1_3="$(chmod g-r-w-x,o-r-w-x /etc/cron.hourly)"
 rhel_5_1_3=$?
 if [[ "$rhel_5_1_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/cron.hourly are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/cron.hourly are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/cron.hourly are configured"
@@ -1798,7 +1798,7 @@ echo -e "${RED}5.1.4${NC} Ensure permissions on /etc/cron.daily are configured"
 rhel_5_1_4="$(chmod g-r-w-x,o-r-w-x /etc/cron.daily)"
 rhel_5_1_4=$?
 if [[ "$rhel_5_1_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/cron.daily are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/cron.daily are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/cron.daily are configured"
@@ -1811,7 +1811,7 @@ echo -e "${RED}5.1.5${NC} Ensure permissions on /etc/cron.weekly are configured"
 rhel_5_1_5="$(chmod g-r-w-x,o-r-w-x /etc/cron.weekly)"
 rhel_5_1_5=$?
 if [[ "$rhel_5_1_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/cron.weekly are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/cron.weekly are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/cron.weekly are configured"
@@ -1824,7 +1824,7 @@ echo -e "${RED}5.1.6${NC} Ensure permissions on /etc/cron.monthly are configured
 rhel_5_1_6="$(chmod g-r-w-x,o-r-w-x /etc/cron.monthly)"
 rhel_5_1_6=$?
 if [[ "$rhel_5_1_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/cron.monthly are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/cron.monthly are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/cron.monthly are configured"
@@ -1837,7 +1837,7 @@ echo -e "${RED}5.1.7${NC} Ensure permissions on /etc/cron.d are configured enabl
 rhel_5_1_7="$(chmod g-r-w-x,o-r-w-x /etc/cron.d)"
 rhel_5_1_7=$?
 if [[ "$rhel_5_1_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/cron.d are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/cron.d are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/cron.d are configured"
@@ -1856,7 +1856,7 @@ rhel_5_1_8_temp_1=$?
 rhel_5_1_8_temp_2="$(chmod g-r-w-x,o-r-w-x /etc/at.allow)"
 rhel_5_1_8_temp_2=$?
 if [[ "$rhel_5_1_8_temp_1" -eq 0 ]] && [[ "$rhel_5_1_8_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure at/cron is restricted to authorized users"
+  echo -e "${GREEN}Remediated:${NC} at/cron is restricted to authorized users"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure at/cron is restricted to authorized users"
@@ -1875,7 +1875,7 @@ echo -e "${RED}5.2.1${NC} Ensure permissions on /etc/ssh/sshd_config are configu
 rhel_5_2_1="$(chmod g-r-w-x,o-r-w-x /etc/ssh/sshd_config)"
 rhel_5_2_1=$?
 if [[ "$rhel_5_2_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/ssh/sshd_config are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/ssh/sshd_config are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/ssh/sshd_config are configured"
@@ -1888,7 +1888,7 @@ echo -e "${RED}5.2.2${NC} Ensure SSH Protocol is set to 2"
 rhel_5_2_2="$(egrep -q "^(\s*)Protocol\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)Protocol\s+\S+(\s*#.*)?\s*$/\1Protocol 2\2/" /etc/ssh/sshd_config || echo "Protocol 2" >> /etc/ssh/sshd_config)"
 rhel_5_2_2=$?
 if [[ "$rhel_5_2_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH Protocol is set to 2"
+  echo -e "${GREEN}Remediated:${NC} SSH Protocol is set to 2"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH Protocol is set to 2"
@@ -1901,7 +1901,7 @@ echo -e "${RED}5.2.3${NC} Ensure SSH LogLevel is set to INFO"
 rhel_5_2_3="$(egrep -q "^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)LogLevel\s+\S+(\s*#.*)?\s*$/\1LogLevel INFO\2/" /etc/ssh/sshd_config || echo "LogLevel INFO" >> /etc/ssh/sshd_config)"
 rhel_5_2_3=$?
 if [[ "$rhel_5_2_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH LogLevel is set to INFO"
+  echo -e "${GREEN}Remediated:${NC} SSH LogLevel is set to INFO"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH LogLevel is set to INFO"
@@ -1914,7 +1914,7 @@ echo -e "${RED}5.2.4${NC} Ensure SSH X11 forwarding is disabled"
 rhel_5_2_4="$(egrep -q "^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)X11Forwarding\s+\S+(\s*#.*)?\s*$/\1X11Forwarding no\2/" /etc/ssh/sshd_config || echo "X11Forwarding no" >> /etc/ssh/sshd_config)"
 rhel_5_2_4=$?
 if [[ "$rhel_5_2_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH X11 forwarding is disabled"
+  echo -e "${GREEN}Remediated:${NC} SSH X11 forwarding is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH X11 forwarding is disabled"
@@ -1927,7 +1927,7 @@ echo -e "${RED}5.2.5${NC} Ensure SSH MaxAuthTries is set to 4 or less"
 rhel_5_2_5="$(egrep -q "^(\s*)MaxAuthTries\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)MaxAuthTries\s+\S+(\s*#.*)?\s*$/\1MaxAuthTries 4\2/" /etc/ssh/sshd_config || echo "MaxAuthTries 4" >> /etc/ssh/sshd_config)"
 rhel_5_2_5=$?
 if [[ "$rhel_5_2_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH MaxAuthTries is set to 4 or less"
+  echo -e "${GREEN}Remediated:${NC} SSH MaxAuthTries is set to 4 or less"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH MaxAuthTries is set to 4 or less"
@@ -1940,7 +1940,7 @@ echo -e "${RED}5.2.6${NC} Ensure SSH IgnoreRhosts is enabled"
 rhel_5_2_6="$(egrep -q "^(\s*)IgnoreRhosts\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)IgnoreRhosts\s+\S+(\s*#.*)?\s*$/\1IgnoreRhosts yes\2/" /etc/ssh/sshd_config || echo "IgnoreRhosts yes" >> /etc/ssh/sshd_config)"
 rhel_5_2_6=$?
 if [[ "$rhel_5_2_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH IgnoreRhosts is enabled"
+  echo -e "${GREEN}Remediated:${NC} SSH IgnoreRhosts is enabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH IgnoreRhosts is enabled"
@@ -1953,7 +1953,7 @@ echo -e "${RED}5.2.7${NC} Ensure SSH HostbasedAuthentication is disabled"
 rhel_5_2_7="$(egrep -q "^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)HostbasedAuthentication\s+\S+(\s*#.*)?\s*$/\1HostbasedAuthentication no\2/" /etc/ssh/sshd_config || echo "HostbasedAuthentication no" >> /etc/ssh/sshd_config)"
 rhel_5_2_7=$?
 if [[ "$rhel_5_2_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH HostbasedAuthentication is disabled"
+  echo -e "${GREEN}Remediated:${NC} SSH HostbasedAuthentication is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH HostbasedAuthentication is disabled"
@@ -1966,7 +1966,7 @@ echo -e "${RED}5.2.8${NC} Ensure SSH root login is disabled"
 rhel_5_2_8="$(egrep -q "^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitRootLogin\s+\S+(\s*#.*)?\s*$/\1PermitRootLogin no\2/" /etc/ssh/sshd_config || echo "PermitRootLogin no" >> /etc/ssh/sshd_config)"
 rhel_5_2_8=$?
 if [[ "$rhel_5_2_8" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH root login is disabled"
+  echo -e "${GREEN}Remediated:${NC} SSH root login is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH root login is disabled"
@@ -1979,7 +1979,7 @@ echo -e "${RED}5.2.9${NC} Ensure SSH PermitEmptyPasswords is disabled"
 rhel_5_2_9="$(egrep -q "^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitEmptyPasswords\s+\S+(\s*#.*)?\s*$/\1PermitEmptyPasswords no\2/" /etc/ssh/sshd_config || echo "PermitEmptyPasswords no" >> /etc/ssh/sshd_config)"
 rhel_5_2_9=$?
 if [[ "$rhel_5_2_9" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitEmptyPasswords is disabled"
+  echo -e "${GREEN}Remediated:${NC} SSH PermitEmptyPasswords is disabled"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitEmptyPasswords is disabled"
@@ -1988,14 +1988,14 @@ fi
 
 # Ensure SSH PermitUserEnvironment is disabled
 echo
-echo -e "${RED}5.2.10${NC} Ensure SSH PermitUserEnvironment is disable"
+echo -e "${RED}5.2.10${NC} Ensure SSH PermitUserEnvironment is disabled"
 rhel_5_2_10="$(egrep -q "^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)PermitUserEnvironment\s+\S+(\s*#.*)?\s*$/\1PermitUserEnvironment no\2/" /etc/ssh/sshd_config || echo "PermitUserEnvironment no" >> /etc/ssh/sshd_config)"
 rhel_5_2_10=$?
 if [[ "$rhel_5_2_10" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH PermitUserEnvironment is disable"
+  echo -e "${GREEN}Remediated:${NC} SSH PermitUserEnvironment is disabled"
   success=$((success + 1))
 else
-  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitUserEnvironment is disable"
+  echo -e "${RED}UnableToRemediate:${NC} Ensure SSH PermitUserEnvironment is disabled"
   fail=$((fail + 1))
 fi
 
@@ -2005,7 +2005,7 @@ echo -e "${RED}5.2.11${NC} Ensure only approved MAC algorithms are used"
 rhel_5_2_11="$(egrep -q "^(\s*)MACs\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)MACs\s+\S+(\s*#.*)?\s*$/\MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com\2/" /etc/ssh/sshd_config || echo "MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com" >> /etc/ssh/sshd_config)"
 rhel_5_2_11=$?
 if [[ "$rhel_5_2_11" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure only approved MAC algorithms are used"
+  echo -e "${GREEN}Remediated:${NC} only approved MAC algorithms are used"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure only approved MAC algorithms are used"
@@ -2021,7 +2021,7 @@ rhel_5_2_12_temp_1=$?
 rhel_5_2_12_temp_2="$(egrep -q "^(\s*)ClientAliveCountMax\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)ClientAliveCountMax\s+\S+(\s*#.*)?\s*$/\1ClientAliveCountMax 3\2/" /etc/ssh/sshd_config || echo "ClientAliveCountMax 3" >> /etc/ssh/sshd_config)"
 rhel_5_2_12_temp_2=$?
 if [[ "$rhel_5_2_12_temp_1" -eq 0 ]] && [[ "$rhel_5_2_12_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH Idle Timeout Interval is configured"
+  echo -e "${GREEN}Remediated:${NC} SSH Idle Timeout Interval is configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH Idle Timeout Interval is configured"
@@ -2034,7 +2034,7 @@ echo -e "${RED}5.2.13${NC} Ensure SSH LoginGraceTime is set to one minute or les
 rhel_5_2_13="$(egrep -q "^(\s*)LoginGraceTime\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)LoginGraceTime\s+\S+(\s*#.*)?\s*$/\1LoginGraceTime 60\2/" /etc/ssh/sshd_config || echo "LoginGraceTime 60" >> /etc/ssh/sshd_config)"
 rhel_5_2_13=$?
 if [[ "$rhel_5_2_13" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH LoginGraceTime is set to one minute or less"
+  echo -e "${GREEN}Remediated:${NC} SSH LoginGraceTime is set to one minute or less"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH LoginGraceTime is set to one minute or less"
@@ -2047,7 +2047,7 @@ echo -e "${RED}5.2.15${NC} Ensure SSH warning banner is configured"
 rhel_5_2_15="$(egrep -q "^(\s*)Banner\s+\S+(\s*#.*)?\s*$" /etc/ssh/sshd_config && sed -ri "s/^(\s*)Banner\s+\S+(\s*#.*)?\s*$/\1Banner \/etc\/issue.net\2/" /etc/ssh/sshd_config || echo "Banner /etc/issue.net" >> /etc/ssh/sshd_config)"
 rhel_5_2_15=$?
 if [[ "$rhel_5_2_15" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure SSH warning banner is configured"
+  echo -e "${GREEN}Remediated:${NC} SSH warning banner is configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure SSH warning banner is configured"
@@ -2078,7 +2078,7 @@ rhel_5_3_1_temp_6=$?
 rhel_5_3_1_temp_7="$(echo "password requisite pam_pwquality.so try_first_pass retry=3" >> /etc/pam.d/password-auth)"
 rhel_5_3_1_temp_7=$?
 if [[ "$rhel_5_3_1_temp_1" -eq 0 ]] && [[ "$rhel_5_3_1_temp_2" -eq 0 ]] && [[ "$rhel_5_3_1_temp_3" -eq 0 ]] && [[ "$rhel_5_3_1_temp_4" -eq 0 ]] && [[ "$rhel_5_3_1_temp_5" -eq 0 ]] && [[ "$rhel_5_3_1_temp_6" -eq 0 ]] && [[ "$rhel_5_3_1_temp_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure password creation requirements are configured"
+  echo -e "${GREEN}Remediated:${NC} password creation requirements are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure password creation requirements are configured"
@@ -2093,7 +2093,7 @@ rhel_5_3_3_temp_1=$?
 rhel_5_3_3_temp_2="$(egrep -q "^\s*password\s+sufficient\s+pam_unix.so(\s+.*)$" /etc/pam.d/password-auth && sed -ri '/^\s*password\s+sufficient\s+pam_unix.so\s+/ { /^\s*password\s+sufficient\s+pam_unix.so(\s+\S+)*(\s+remember=[0-9]+)(\s+.*)?$/! s/^(\s*password\s+sufficient\s+pam_unix.so\s+)(.*)$/\1remember=5 \2/ }' /etc/pam.d/password-auth && sed -ri 's/(^\s*password\s+sufficient\s+pam_unix.so(\s+\S+)*\s+)remember=[0-9]+(\s+.*)?$/\1remember=5\3/' /etc/pam.d/password-auth || echo Ensure\ password\ reuse\ is\ limited - /etc/pam.d/password-auth not configured.)"
 rhel_5_3_3_temp_2=$?
 if [[ "$rhel_5_3_3_temp_1" -eq 0 ]] && [[ "$rhel_5_3_3_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure password reuse is limited"
+  echo -e "${GREEN}Remediated:${NC} password reuse is limited"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure password reuse is limited"
@@ -2108,7 +2108,7 @@ rhel_5_3_4_temp_1=$?
 rhel_5_3_4_temp_2="$(egrep -q "^\s*password\s+sufficient\s+pam_unix.so\s+" /etc/pam.d/password-auth && sed -ri '/^\s*password\s+sufficient\s+pam_unix.so\s+/ { /^\s*password\s+sufficient\s+pam_unix.so(\s+\S+)*(\s+sha512)(\s+.*)?$/! s/^(\s*password\s+sufficient\s+pam_unix.so\s+)(.*)$/\1sha512 \2/ }' /etc/pam.d/password-auth || echo Ensure\ password\ hashing\ algorithm\ is\ SHA-512 - /etc/pam.d/password-auth not configured.)"
 rhel_5_3_4_temp_2=$?
 if [[ "$rhel_5_3_4_temp_1" -eq 0 ]] && [[ "$rhel_5_3_4_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure password hashing algorithm is SHA-512"
+  echo -e "${GREEN}Remediated:${NC} password hashing algorithm is SHA-512"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure password hashing algorithm is SHA-512"
@@ -2128,7 +2128,7 @@ rhel_5_4_1_1="$(egrep -q "^(\s*)PASS_MAX_DAYS\s+\S+(\s*#.*)?\s*$" /etc/login.def
 rhel_5_4_1_1=$?
 getent passwd | cut -f1 -d ":" | xargs -n1 chage --maxdays 90
 if [[ "$rhel_5_4_1_1" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure password expiration is 90 days or less"
+  echo -e "${GREEN}Remediated:${NC} password expiration is 90 days or less is set"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure password expiration is 90 days or less"
@@ -2142,7 +2142,7 @@ rhel_5_4_1_2="$(egrep -q "^(\s*)PASS_MIN_DAYS\s+\S+(\s*#.*)?\s*$" /etc/login.def
 rhel_5_4_1_2=$?
 getent passwd | cut -f1 -d ":" | xargs -n1 chage --mindays 7
 if [[ "$rhel_5_4_1_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure minimum days between password changes is 7 or more"
+  echo -e "${GREEN}Remediated:${NC} minimum days between password changes is 7 or more is set"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure minimum days between password changes is 7 or more"
@@ -2156,7 +2156,7 @@ rhel_5_4_1_3="$(egrep -q "^(\s*)PASS_WARN_AGE\s+\S+(\s*#.*)?\s*$" /etc/login.def
 rhel_5_4_1_3=$?
 getent passwd | cut -f1 -d ":" | xargs -n1 chage --warndays 7
 if [[ "$rhel_5_4_1_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure password expiration warning days is 7 or more"
+  echo -e "${GREEN}Remediated:${NC} password expiration warning days is 7 or more is set"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure password expiration warning days is 7 or more"
@@ -2170,7 +2170,7 @@ rhel_5_4_1_4="$(useradd -D -f 30)"
 rhel_5_4_1_4=$?
 getent passwd | cut -f1 -d ":" | xargs -n1 chage --inactive 30
 if [[ "$rhel_5_4_1_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure inactive password lock is 30 days or less"
+  echo -e "${GREEN}Remediated:${NC} inactive password lock is 30 days or less is set"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure inactive password lock is 30 days or less"
@@ -2190,7 +2190,7 @@ for user in `awk -F: '($3 < 1000) {print $1 }' /etc/passwd`; do
     fi
   fi
 done
-echo -e "${GREEN}Remediated:${NC} Ensure system accounts are non-login"
+echo -e "${GREEN}Remediated:${NC} system accounts are non-login"
 success=$((success + 1))
 
 # Ensure default group for the root account is GID 0
@@ -2199,7 +2199,7 @@ echo -e "${RED}5.4.3${NC} Ensure default group for the root account is GID 0"
 rhel_5_4_3="$(usermod -g 0 root)"
 rhel_5_4_3=$?
 if [[ "$rhel_5_4_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure default group for the root account is GID 0"
+  echo -e "${GREEN}Remediated:${NC} default group for the root account is GID 0"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure default group for the root account is GID 0"
@@ -2214,7 +2214,7 @@ rhel_5_4_4_temp_1=$?
 rhel_5_4_4_temp_2="$(egrep -q "^(\s*)umask\s+\S+(\s*#.*)?\s*$" /etc/profile && sed -ri "s/^(\s*)umask\s+\S+(\s*#.*)?\s*$/\1umask 077\2/" /etc/profile || echo "umask 077" >> /etc/profile)"
 rhel_5_4_4_temp_2=$?
 if [[ "$rhel_5_4_4_temp_1" -eq 0 ]] && [[ "$rhel_5_4_4_temp_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure default user umask is 027 or more restrictive"
+  echo -e "${GREEN}Remediated:${NC} default user umask is 027 or more restrictive"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure default user umask is 027 or more restrictive"
@@ -2227,7 +2227,7 @@ echo -e "${RED}5.6${NC} Ensure access to the su command is restricted"
 rhel_5_6="$(egrep -q "^\s*auth\s+required\s+pam_wheel.so(\s+.*)?$" /etc/pam.d/su && sed -ri '/^\s*auth\s+required\s+pam_wheel.so(\s+.*)?$/ { /^\s*auth\s+required\s+pam_wheel.so(\s+\S+)*(\s+use_uid)(\s+.*)?$/! s/^(\s*auth\s+required\s+pam_wheel.so)(\s+.*)?$/\1 use_uid\2/ }' /etc/pam.d/su || echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su)"
 rhel_5_6=$?
 if [[ "$rhel_5_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure access to the su command is restricted"
+  echo -e "${GREEN}Remediated:${NC} access to the su command is restricted"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure access to the su command is restricted"
@@ -2246,7 +2246,7 @@ echo -e "${RED}6.1.2${NC} Ensure permissions on /etc/passwd are configured"
 rhel_6_1_2="$(chmod -t,u+r+w-x-s,g+r-w-x-s,o+r-w-x /etc/passwd)"
 rhel_6_1_2=$?
 if [[ "$rhel_6_1_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/passwd are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/passwd are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/passwd are configured"
@@ -2259,7 +2259,7 @@ echo -e "${RED}6.1.3${NC} Ensure permissions on /etc/shadow are configured"
 rhel_6_1_3="$(chmod -t,u-x-s,g-w-x-s,o-r-w-x /etc/shadow)"
 rhel_6_1_3=$?
 if [[ "$rhel_6_1_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/shadow are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/shadow are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/shadow are configured"
@@ -2272,7 +2272,7 @@ echo -e "${RED}6.1.4${NC} Ensure permissions on /etc/group are configured"
 rhel_6_1_4="$(chmod -t,u+r+w-x-s,g+r-w-x-s,o+r-w-x /etc/group)"
 rhel_6_1_4=$?
 if [[ "$rhel_6_1_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/group are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/group are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/group are configured"
@@ -2285,7 +2285,7 @@ echo -e "${RED}6.1.5${NC} Ensure permissions on /etc/gshadow are configured"
 rhel_6_1_5="$(chmod -t,u-x-s,g-w-x-s,o-r-w-x /etc/gshadow)"
 rhel_6_1_5=$?
 if [[ "$rhel_6_1_5" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/gshadow are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/gshadow are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/gshadow are configured"
@@ -2298,7 +2298,7 @@ echo -e "${RED}6.1.6${NC} Ensure permissions on /etc/passwd- are configured"
 rhel_6_1_6="$(chmod -t,u-x-s,g-r-w-x-s,o-r-w-x /etc/passwd-)"
 rhel_6_1_6=$?
 if [[ "$rhel_6_1_6" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/passwd- are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/passwd- are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/passwd- are configured"
@@ -2311,7 +2311,7 @@ echo -e "${RED}6.1.7${NC} Ensure permissions on /etc/shadow- are configured"
 rhel_6_1_7="$(chmod -t,u-x-s,g-r-w-x-s,o-r-w-x /etc/shadow-)"
 rhel_6_1_7=$?
 if [[ "$rhel_6_1_7" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/shadow- are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/shadow- are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/shadow- are configured"
@@ -2324,7 +2324,7 @@ echo -e "${RED}6.1.8${NC} Ensure permissions on /etc/group- are configured"
 rhel_6_1_8="$(chmod -t,u-x-s,g-r-w-x-s,o-r-w-x /etc/group-)"
 rhel_6_1_8=$?
 if [[ "$rhel_6_1_8" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/group- are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/group- are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/group- are configured"
@@ -2337,7 +2337,7 @@ echo -e "${RED}6.1.9${NC} EEnsure permissions on /etc/gshadow- are configured"
 rhel_6_1_9="$(chmod -t,u-x-s,g-r-w-x-s,o-r-w-x /etc/gshadow-)"
 rhel_6_1_9=$?
 if [[ "$rhel_6_1_9" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure permissions on /etc/gshadow- are configured"
+  echo -e "${GREEN}Remediated:${NC} permissions on /etc/gshadow- are configured"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure permissions on /etc/gshadow- are configured"
@@ -2356,7 +2356,7 @@ echo -e "${RED}6.2.2${NC} Ensure no legacy + entries exist in /etc/passwd"
 rhel_6_2_2="$(sed -ri '/^\+:.*$/ d' /etc/passwd)"
 rhel_6_2_2=$?
 if [[ "$rhel_6_2_2" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure no legacy + entries exist in /etc/passwd"
+  echo -e "${GREEN}Remediated:${NC} no legacy + entries exist in /etc/passwd"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure no legacy + entries exist in /etc/passwd"
@@ -2369,7 +2369,7 @@ echo -e "${RED}6.2.3${NC} Ensure no legacy + entries exist in /etc/shadow"
 rhel_6_2_3="$(sed -ri '/^\+:.*$/ d' /etc/shadow)"
 rhel_6_2_3=$?
 if [[ "$rhel_6_2_3" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure no legacy + entries exist in /etc/shadowd"
+  echo -e "${GREEN}Remediated:${NC} no legacy + entries exist in /etc/shadowd"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure no legacy + entries exist in /etc/shadowd"
@@ -2382,7 +2382,7 @@ echo -e "${RED}6.2.4${NC} Ensure no legacy + entries exist in /etc/group"
 rhel_6_2_4="$(sed -ri '/^\+:.*$/ d' /etc/group)"
 rhel_6_2_4=$?
 if [[ "$rhel_6_2_4" -eq 0 ]]; then
-  echo -e "${GREEN}Remediated:${NC} Ensure no legacy + entries exist in /etc/group"
+  echo -e "${GREEN}Remediated:${NC} no legacy + entries exist in /etc/group"
   success=$((success + 1))
 else
   echo -e "${RED}UnableToRemediate:${NC} Ensure no legacy + entries exist in /etc/group"
